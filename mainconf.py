@@ -2,6 +2,8 @@
 # add profile details here
 import logging
 
+logging_level = 'info'
+
 access_key_id = ''
 secret_access_key = ''
 region = ''
@@ -24,6 +26,10 @@ Example:
     },
 }
 '''
+FORMAT = '%(asctime)-15s - %(levelname)s - %(message)s'
+logging.basicConfig(
+    level=getattr(logging, logging_level.upper()),
+    format=FORMAT)
 
 
 def getconfig(profile='default'):
@@ -51,7 +57,7 @@ def getconfig(profile='default'):
     else:
         aws_region = conf[profile]['region']
 
-    return dict(
-        aws_access_key_id=aws_access_key_id,
-        aws_secret_access_key=aws_secret_access_key,
-        aws_region=aws_region)
+    return tuple([
+        aws_access_key_id,
+        aws_secret_access_key,
+        aws_region])
