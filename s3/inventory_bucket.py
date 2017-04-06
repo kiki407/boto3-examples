@@ -1,13 +1,11 @@
 from boto3.session import Session
-aws_id = ""
-aws_secret = ""
-aws_region = 'eu-west-1'
-aws_bucket_name = 'test'
+import logging
+import pprint
 
 session = Session(
-            region_name=aws_region,
-            aws_secret_access_key=aws_secret,
-            aws_access_key_id=aws_id
+    aws_access_key_id=conf.aws_access_key_id,
+    aws_secret_access_key=conf.aws_secret_access_key,
+    region_name=conf.aws_region
             )
 s3 = session.client('s3')
 paginator = s3.get_paginator('list_objects_v2')
